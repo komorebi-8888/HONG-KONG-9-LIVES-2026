@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇭🇰 Hong Kong Scrapbook 2026 | ทริปสงกรานต์สุดปัง</title>
+    <!-- Google Fonts: Mali (Handwritten), Itim, Prompt, Chakra Petch -->
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:ital,wght@0,500;0,700;1,600&family=Prompt:wght@300;400;500;600;700;800&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper-bg: #FDFBF3;
+            --craft-card: #FFFFFF;
+            --duck-yellow: #FFD000;
+            --duck-orange: #FF8800;
+            --duck-pink: #FF6B8B;
+            --duck-blue: #3A86FF;
+            --duck-green: #2EC4B6;
+            --text-ink: #2B2625;
+            --text-pencil: #685E5A;
+            --washi-pink: rgba(255, 107, 139, 0.4);
+            --washi-yellow: rgba(255, 208, 0, 0.45);
+            --washi-blue: rgba(58, 134, 255, 0.35);
+            --shadow-scrap: 0 10px 25px rgba(100, 80, 60, 0.12);
+            --shadow-pop: 0 16px 35px rgba(255, 136, 0, 0.22);
+            --g1-color: #FF6B8B;
+            --g2-color: #3A86FF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--paper-bg);
+            background-image: 
+                radial-gradient(#E8E0D0 1px, transparent 0),
+                radial-gradient(#E8E0D0 1px, var(--paper-bg) 0);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+            color: var(--text-ink);
+            font-family: 'Mali', 'Prompt', cursive, sans-serif;
+            min-height: 100vh;
+            padding-bottom: 120px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Particle Canvas */
+        #particle-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Washi Tape Styles */
+        .washi-tape {
+            position: absolute;
+            height: 28px;
+            width: 110px;
+            background: var(--washi-pink);
+            backdrop-filter: blur(2px);
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 2px dashed rgba(255,255,255,0.6);
+            border-right: 2px dashed rgba(255,255,255,0.6);
+        }
+        .washi-top-left { top: -12px; left: -15px; transform: rotate(-8deg); }
+        .washi-top-right { top: -12px; right: -15px; transform: rotate(6deg); background: var(--washi-yellow); }
+        .washi-bottom-right { bottom: -12px; right: -10px; transform: rotate(-5deg); background: var(--washi-blue); }
+
+        /* Floating Audio Player */
+        .duck-audio-player {
+            position: fixed;
+            bottom: 24px; right: 24px;
+            z-index: 999;
+            background: #FFF;
+            border: 3px solid var(--text-ink);
+            padding: 10px 20px;
+            border-radius: 40px;
+            box-shadow: 0 10px 0 var(--text-ink);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .duck-audio-player:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 0 var(--text-ink);
+            background: #FFF8E7;
+        }
+        .duck-play-btn {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: var(--duck-yellow);
+            border: 2px solid var(--text-ink);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            color: var(--text-ink);
+        }
+
+        /* Top Header Nav */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(253, 251, 243, 0.92);
+            backdrop-filter: blur(15px);
+            border-bottom: 3px dashed #D8D0C0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 2rem;
+        }
+
+        .scrapbook-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-ink);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .duck-chip {
+            background: var(--duck-yellow);
+            color: var(--text-ink);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: 2px solid var(--text-ink);
+        }
+
+        /* Hero Scrapbook Section */
+        .hero-scrapbook {
+            position: relative;
+            z-index: 2;
+            padding: 3.5rem 1.5rem 2rem;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Super Cute Animated Sun */
+        .cute-sun-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sun-rays-ring {
+            position: absolute;
+            width: 115px;
+            height: 115px;
+            animation: spinRays 14s linear infinite;
+        }
+
+        @keyframes spinRays {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .sun-rays-ring span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 9px;
+            height: 115px;
+            margin-top: -57.5px;
+            margin-left: -4.5px;
+            background: radial-gradient(circle at top, #FFD500 0%, #FFA000 60%, transparent 80%);
+            border-radius: 10px;
+        }
+
+        .sun-rays-ring span:nth-child(1) { transform: rotate(0deg); }
+        .sun-rays-ring span:nth-child(2) { transform: rotate(45deg); }
+        .sun-rays-ring span:nth-child(3) { transform: rotate(90deg); }
+        .sun-rays-ring span:nth-child(4) { transform: rotate(135deg); }
+
+        .cute-sun-core {
+            position: relative;
+            width: 82px;
+            height: 82px;
+            background: radial-gradient(circle at 35% 35%, #FFF375 0%, #FFC107 70%, #FF9800 100%);
+            border-radius: 50%;
+            border: 4px solid #FFFFFF;
+            box-shadow: 0 0 35px rgba(255, 179, 0, 0.85), inset 0 -4px 8px rgba(0,0,0,0.12);
+            animation: floatCuteSun 3s ease-in-out infinite alternate;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        @keyframes floatCuteSun {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-8px) scale(1.05); }
+        }
+
+        .sun-face-eyes {
+            display: flex;
+            gap: 18px;
+            margin-top: 4px;
+        }
+
+        .sun-face-eyes .eye {
+            width: 10px;
+            height: 13px;
+            background: #222222;
+            border-radius: 50%;
+            position: relative;
+            animation: blinkCute 4s infinite;
+        }
+
+        .sun-face-eyes .eye::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 3.5px;
+            height: 3.5px;
+            background: #FFFFFF;
+            border-radius: 50%;
+        }
+
+        @keyframes blinkCute {
+            0%, 90%, 100% { transform: scaleY(1); }
+            95% { transform: scaleY(0.1); }
+        }
+
+        .sun-cheeks {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 12px;
+            top: 44px;
+        }
+
+        .sun-cheeks .blush {
+            width: 14px;
+            height: 8px;
+            background: rgba(255, 64, 129, 0.65);
+            border-radius: 50%;
+        }
+
+        .sun-mouth {
+            width: 14px;
+            height: 8px;
+            border-bottom: 3.5px solid #222222;
+            border-radius: 0 0 14px 14px;
+            margin-top: 2px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #FFF0F3;
+            color: var(--duck-pink);
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            border: 2px dashed var(--duck-pink);
+            transform: rotate(-2deg);
+        }
+
+        .hero-title {
+            font-family: 'Mali', cursive, sans-serif;
+            font-size: clamp(2.3rem, 6vw, 4.8rem);
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-ink);
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 0 var(--duck-yellow);
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-pencil);
+            max-width: 700px;
+            margin: 0 auto 2.2rem;
+            line-height: 1.6;
+        }
+
+        /* Countdown Note Card */
+        .countdown-note {
+            background: var(--craft-card);
+            border-radius: 30px;
+            border: 3px solid var(--text-ink);
+            padding: 1.8rem 2rem;
+            max-width: 680px;
+            margin: 0 auto 2.8rem;
+            box-shadow: 0 12px 0 var(--text-ink);
+            position: relative;
+            transform: rotate(1deg);
+        }
+
+        .cd-title {
+            font-size: 0.95rem;
+            color: var(--duck-orange);
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .cd-flex {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+
+        .cd-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #FFFDF0;
+            padding: 10px 16px;
+            border-radius: 20px;
+            border: 2px solid var(--duck-yellow);
+            min-width: 80px;
+        }
+
+        .cd-val {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 2.3rem;
+            font-weight: 700;
+            color: var(--text-ink);
+            line-height: 1;
+        }
+
+        .cd-lbl {
+            font-size: 0.78rem;
+            color: var(--text-pencil);
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Group Cards (Gang A & B) */
+        .group-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+
+        .group-card {
+            background: var(--craft-card);
+            border-radius: 28px;
+            padding: 1.8rem;
+            border: 3px solid var(--text-ink);
+            box-shadow: 0 10px 0 var(--text-ink);
+            position: relative;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .group-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 0 var(--text-ink);
+        }
+
+        .group-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .group-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Boarding Pass Flight Slot */
+        .boarding-pass-slot {
+            background: #FDF8EC;
+            border: 2px dashed #E09000;
+            border-radius: 20px;
+            padding: 14px 16px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .pass-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed #E0B050;
+            padding-bottom: 8px;
+        }
+
+        .pass-route {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-ink);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pass-badge {
+            background: #E09000;
+            color: #FFF;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+
+        .pass-details {
+            font-size: 0.9rem;
+            color: var(--text-pencil);
+            line-height: 1.5;
+        }
+        .pass-details b { color: var(--text-ink); }
+
+        /* Blinking Warning Hotel Slot */
+        @keyframes blinkGlow {
+            0%, 100% {
+                background-color: #FFF0F3;
+                border-color: #FF3B30;
+                box-shadow: 0 0 15px rgba(255, 59, 48, 0.4);
+            }
+            50% {
+                background-color: #FFE6EA;
+                border-color: #FF85A2;
+                box-shadow: 0 0 4px rgba(255, 59, 48, 0.1);
+            }
+        }
+
+        .blinking-slot {
+            background: #FFF0F3;
+            border: 3px dashed #FF3B30;
+            border-radius: 20px;
+            padding: 12px 16px;
+            animation: blinkGlow 1.4s infinite ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .blinking-text {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #C2002B;
+        }
+
+        .blinking-badge {
+            background: #FF3B30;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 15px;
+            animation: pulseMini 0.8s infinite alternate;
+        }
+
+        @keyframes pulseMini {
+            from { transform: scale(1); }
+            to { transform: scale(1.08); }
+        }
+
+        /* Scrapbook Notebook Tabs */
+        .tabs-wrapper {
+            margin-bottom: 3rem;
+        }
+
+        .tabs-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 8px 4px 14px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tabs-scroll::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            background: var(--craft-card);
+            border: 3px solid var(--text-ink);
+            color: var(--text-ink);
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-family: 'Mali', cursive, sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+            box-shadow: 0 5px 0 var(--text-ink);
+            flex-shrink: 0;
+        }
+
+        .tab-btn:hover {
+            background: var(--duck-yellow);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 var(--text-ink);
+        }
+
+        .tab-btn.active {
+            background: var(--text-ink);
+            color: white;
+            box-shadow: 0 7px 0 var(--duck-pink);
+            transform: translateY(-2px);
+        }
+
+        /* Panels & Cards Grid */
+        .panel { display: none; animation: popScrap 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .panel.active { display: block; }
+
+        @keyframes popScrap {
+            from { opacity: 0; transform: translateY(18px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Polaroid Photo Card Style */
+        .polaroid-card {
+            background: var(--craft-card);
+            border-radius: 24px;
+            border: 3px solid var(--text-ink);
+            padding: 14px 14px 20px 14px;
+            box-shadow: 0 10px 0 var(--text-ink);
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .polaroid-card:nth-child(odd) { transform: rotate(-1.5deg); }
+        .polaroid-card:nth-child(even) { transform: rotate(1.5deg); }
+
+        .polaroid-card:hover {
+            transform: translateY(-8px) rotate(0deg) scale(1.02);
+            box-shadow: 0 16px 0 var(--text-ink);
+        }
+
+        .photo-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--text-ink);
+            background: #F3EEE0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-wrapper img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .polaroid-card:hover .photo-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .photo-upload-placeholder {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(45deg, #FFF9EB, #FFF9EB 10px, #FFF3D6 10px, #FFF3D6 20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: var(--text-pencil);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .photo-upload-placeholder span.cam-icon {
+            font-size: 2rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .time-tag {
+            position: absolute;
+            top: 12px; left: 12px;
+            background: #FFF;
+            color: var(--text-ink);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 2px solid var(--text-ink);
+            z-index: 5;
+        }
+
+        .group-tag {
+            position: absolute;
+            top: 12px; right: 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: white;
+            border: 2px solid var(--text-ink);
+            z-index: 5;
+        }
+        .tag-g1 { background: var(--duck-pink); }
+        .tag-g2 { background: var(--duck-blue); }
+        .tag-both { background: linear-gradient(135deg, var(--duck-orange), var(--duck-pink)); }
+
+        .card-body {
+            padding: 1.2rem 0.4rem 0.2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-ink);
+            margin-bottom: 0.5rem;
+            line-height: 1.35;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: var(--text-pencil);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            font-size: 0.88rem;
+            color: var(--duck-orange);
+            font-weight: 700;
+            border-top: 2px dashed #E0D8C8;
+            padding-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        /* Scrapbook Checklist Section */
+        .checklist-box {
+            background: var(--craft-card);
+            border-radius: 30px;
+            padding: 2rem;
+            border: 3px solid var(--text-ink);
+            box-shadow: 0 10px 0 var(--text-ink);
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.1rem;
+            margin-top: 1.2rem;
+        }
+
+        .check-item {
+            background: #FFFDF0;
+            border: 2px solid var(--text-ink);
+            padding: 12px 18px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-ink);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .check-item:hover {
+            background: #FFE8A3;
+            transform: translateY(-2px);
+        }
+
+        .check-item input[type="checkbox"] {
+            width: 20px; height: 20px;
+            accent-color: var(--duck-orange);
+            cursor: pointer;
+        }
+
+        /* Guestbook Comments Block */
+        .comment-box {
+            background: var(--craft-card);
+            border-radius: 30px;
+            padding: 2rem;
+            border: 3px solid var(--text-ink);
+            box-shadow: 0 10px 0 var(--text-ink);
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 12px;
+            margin: 1.2rem 0 1.8rem;
+        }
+
+        .comment-input {
+            flex: 1;
+            background: #FFFDF5;
+            border: 2px solid var(--text-ink);
+            padding: 12px 22px;
+            border-radius: 30px;
+            font-family: 'Mali', 'Prompt', cursive, sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .comment-input:focus {
+            background: white;
+            border-color: var(--duck-orange);
+            box-shadow: 0 0 0 4px rgba(255, 136, 0, 0.15);
+        }
+
+        .comment-btn {
+            background: var(--duck-yellow);
+            color: var(--text-ink);
+            border: 2px solid var(--text-ink);
+            padding: 0 26px;
+            border-radius: 30px;
+            font-family: 'Mali', cursive, sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 4px 0 var(--text-ink);
+        }
+
+        .comment-btn:hover {
+            background: var(--duck-orange);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 var(--text-ink);
+        }
+
+        .comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .comment-card {
+            background: #FFFDF0;
+            border: 2px solid var(--text-ink);
+            padding: 1.1rem 1.5rem;
+            border-radius: 20px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .comment-avatar {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: var(--duck-pink);
+            color: white;
+            font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            border: 2px solid var(--text-ink);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 1.5rem 1rem;
+            color: var(--text-pencil);
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .cd-flex { gap: 0.6rem; }
+            .cd-val { font-size: 1.8rem; }
+            .cd-box { min-width: 65px; padding: 8px 10px; }
+            .hero-scrapbook { padding: 2rem 1rem 1.5rem; }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+    <style id="new-features-css">
+    .day-top-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+    .ootd-badge {
+        background: #FFFDF0;
+        border: 2px dashed var(--text-ink);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--text-ink);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 0 var(--text-ink);
+    }
+    .alert-card-full {
+        grid-column: 1 / -1;
+        background: #FFF0F3;
+        border: 3px solid #FF3B30;
+        border-radius: 24px;
+        padding: 18px 24px;
+        box-shadow: 0 8px 0 #FF3B30;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+    .alert-card-full h3 { color: #C2002B; font-size: 1.15rem; font-weight: 800; display:flex; align-items:center; gap:6px; margin-bottom: 4px; }
+    .alert-card-full p { color: #2B2625; font-size: 0.95rem; line-height: 1.5; font-weight: 500; }
+    
+    .map-link-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #FFF;
+        border: 2px solid var(--text-ink);
+        color: var(--text-ink);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-decoration: none;
+        margin-left: auto;
+        box-shadow: 0 3px 0 var(--text-ink);
+        transition: all 0.2s;
+    }
+    .map-link-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 0 var(--text-ink);
+        background: var(--duck-yellow);
+    }
+    .card-footer { justify-content: flex-start; flex-wrap: wrap; align-items: center;}
+    </style>
+
+    <!-- Per-day/tab mood themes: switches accent colors based on which tab is active -->
+    <style id="day-theme-css">
+    .container { --theme-a: var(--duck-pink); --theme-b: var(--duck-yellow); transition: filter 0.3s ease; }
+    .container[data-theme="mu"]      { --theme-a: #C1121F; --theme-b: #FFC93C; } /* มูเตลูสายเฮง: แดง-ทอง */
+    .container[data-theme="disney"]  { --theme-a: #8E7CC3; --theme-b: #FFD1E8; } /* Disney Fairytale: ม่วง-พาสเทล */
+    .container[data-theme="shop"]    { --theme-a: #6B4226; --theme-b: #D8A657; } /* ช้อปปิ้ง/ขากลับ: เอิร์ธโทน-ทอง */
+    .container[data-theme="sky"]     { --theme-a: #1E88A8; --theme-b: #BEE9F5; } /* สงกรานต์/สภาพอากาศ: ฟ้าน้ำใส */
+    .container[data-theme="food"]    { --theme-a: #D9711A; --theme-b: #FFE1A8; } /* ร้านอร่อย: ส้ม-ครีม */
+
+    .tab-btn { transition: all 0.25s ease; }
+    .tab-btn.active { background: var(--text-ink); color: #fff; box-shadow: 0 7px 0 var(--theme-a); }
+    .tab-btn:hover { background: var(--theme-b); box-shadow: 0 7px 0 var(--text-ink); }
+
+    .polaroid-card { box-shadow: 0 10px 0 var(--theme-a); transition: all 0.3s ease; }
+    .polaroid-card:hover { box-shadow: 0 16px 0 var(--theme-a); }
+
+    .card-footer { color: var(--theme-a); }
+    .map-link-btn { transition: all 0.2s; }
+    .map-link-btn:hover { background: var(--theme-b); }
+
+    .ootd-badge { border-color: var(--theme-a); box-shadow: 0 4px 0 var(--theme-a); }
+    </style>
+
+</head>
+<body>
+
+    <!-- Canvas Particle Effect -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Floating Audio Player -->
+    <div class="duck-audio-player" onclick="toggleAudio()">
+        <div class="duck-play-btn" id="audioBtnIcon">▶</div>
+        <div>
+            <div style="font-size:0.9rem; font-weight:700; color:var(--text-ink);" id="audioTitle">เปิดเพลงฟีลทริป</div>
+            <div style="font-size:0.75rem; color:var(--text-pencil);" id="audioSub">Hong Kong BGM</div>
+        </div>
+    </div>
+    <audio id="bg-music" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=chinese-new-year-113038.mp3"></audio>
+
+    <!-- Top Navigation -->
+    <nav>
+        <a href="#" class="scrapbook-logo">
+            🇭🇰 HONG KONG <span class="duck-chip">Songkran 2026</span>
+        </a>
+        <div style="font-size:0.88rem; font-weight:700; color:var(--text-pencil);">14 - 17 APR 2026</div>
+    </nav>
+
+    <!-- Hero Scrapbook Header -->
+    <header class="hero-scrapbook">
+        <div class="cute-sun-container">
+            <div class="sun-rays-ring">
+                <span></span><span></span><span></span><span></span>
+            </div>
+            <div class="cute-sun-core">
+                <div class="sun-face-eyes">
+                    <span class="eye"></span>
+                    <span class="eye"></span>
+                </div>
+                <div class="sun-cheeks">
+                    <span class="blush"></span>
+                    <span class="blush"></span>
+                </div>
+                <div class="sun-mouth"></div>
+            </div>
+        </div>
+        <div class="hero-badge">✨ SONGKRAN ESCAPE 2026 ✨</div>
+        <h1 class="hero-title">
+            สมุดบันทึกหนีสงกรานต์<br>ตะลุยเกาะฮ่องกง 9 ชีวิต 🇭🇰
+        </h1>
+        <p class="hero-subtitle">วันหยุดยาวสงกรานต์ทั้งที ไม่ต้องเสียวันลาสักวัน! รวมแก๊ง 9 คน ออกไปมูเตลูเสริมดวงความรวย ดิสนีย์แลนด์ให้ใจฟู 4 วัน 3 คืน ☀️✈️</p>
+
+        <!-- Countdown Note Card -->
+        <div class="countdown-note">
+            <div class="washi-tape washi-top-left"></div>
+            <div class="washi-tape washi-top-right"></div>
+            <div class="cd-title">⏳ นับถอยหลังวันเริ่มเควสสงกรานต์ (14 เมษายน)</div>
+            <div class="cd-flex">
+                <div class="cd-box"><span class="cd-val" id="cd-days">00</span><span class="cd-lbl">DAYS</span></div>
+                <div class="cd-box"><span class="cd-val" id="cd-hours">00</span><span class="cd-lbl">HOURS</span></div>
+                <div class="cd-box"><span class="cd-val" id="cd-mins">00</span><span class="cd-lbl">MINS</span></div>
+                <div class="cd-box"><span class="cd-val" id="cd-secs">00</span><span class="cd-lbl">SECS</span></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="mainContainer" data-theme="mu">
+
+        <!-- Separate Dedicated Flight & Hotel Summary Cards (Gang A & B) -->
+        <div class="group-grid">
+            <!-- GANG A CARD -->
+            <div class="group-card">
+                <div class="washi-tape washi-top-left"></div>
+                <div class="group-header">
+                    <div class="group-title">🔴 แก๊ง A (5 คน - สายลุย)</div>
+                    <span class="group-badge" style="background:#FF6B8B;">Thai Lion Air</span>
+                </div>
+
+                <!-- 🎫 สรุปตั๋วบิน (Flight Ticket Boarding Pass Slot) -->
+                <div class="boarding-pass-slot">
+                    <div class="pass-header">
+                        <span class="pass-route">🛫 DMK ➔ HKG</span>
+                        <span class="pass-badge" style="background:#2EC4B6;">✅ จอง & จ่ายเงินเรียบร้อยแล้ว!</span>
+                    </div>
+                    <div class="pass-details">
+                        • <b>ขาไป (14 เม.ย.):</b> SL 360 (ดอนเมือง 09:20 → ฮ่องกง 13:05)<br>
+                        • <b>ขากลับ (17 เม.ย.):</b> SL 365 (ฮ่องกง 20:20 → ดอนเมือง 22:05)
+                    </div>
+                </div>
+
+                <!-- 🏨 ช่องสเปกที่พักกระพริบ (Hotel Slot) -->
+                <div class="blinking-slot">
+                    <div class="blinking-text">
+                        <span>🏨 ที่พักย่าน Tsim Sha Tsui:</span>
+                        <span style="font-weight:600;">(Xi / Kowloon / Joy Hotel)</span>
+                    </div>
+                    <span class="blinking-badge">🚨 แพลนไว้ ยังไม่ได้จอง!</span>
+                </div>
+            </div>
+
+            <!-- GANG B CARD -->
+            <div class="group-card">
+                <div class="washi-tape washi-top-right"></div>
+                <div class="group-header">
+                    <div class="group-title">🔵 แก๊ง B (4 คน - สายเจ้าหญิง)</div>
+                    <span class="group-badge" style="background:#3A86FF;">Thai Lion Air</span>
+                </div>
+
+                <!-- 🎫 สรุปตั๋วบิน (Flight Ticket Boarding Pass Slot) -->
+                <div class="boarding-pass-slot" style="background:#F0F7FF; border-color:#3A86FF;">
+                    <div class="pass-header" style="border-color:#A0C8FF;">
+                        <span class="pass-route">🛫 DMK ➔ HKG</span>
+                        <span class="pass-badge" style="background:#2EC4B6;">✅ จอง & จ่ายเงินเรียบร้อยแล้ว!</span>
+                    </div>
+                    <div class="pass-details">
+                        • <b>ขาไป (14 เม.ย.):</b> SL 364 (ดอนเมือง 15:25 → ฮ่องกง 19:15)<br>
+                        • <b>ขากลับ (17 เม.ย.):</b> SL 361 (ฮ่องกง 14:20 → ดอนเมือง 16:15)
+                    </div>
+                </div>
+
+                <!-- 🏨 ช่องสเปกที่พักกระพริบ (Hotel Slot) -->
+                <div class="blinking-slot" style="border-color:#3A86FF; background:#F0F5FF;">
+                    <div class="blinking-text" style="color:#0048B5;">
+                        <span>🏰 ที่พัก:</span>
+                        <span style="font-weight:700;">Disney Explorers Lodge</span>
+                    </div>
+                    <span class="blinking-badge" style="background:#3A86FF;">🚨 แพลนไว้ ยังไม่ได้จอง!</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrapbook Navigation Tabs -->
+        <div class="tabs-wrapper">
+            <div class="tabs-scroll">
+                <button class="tab-btn active" onclick="switchTab('day1', this)">🌸 DAY 1: เหินฟ้า & ยืมเงินเทพเจ้า</button>
+                <button class="tab-btn" onclick="switchTab('day2', this)">🌀 DAY 2: หมุนกังหันแก้ดวง & กินจุก</button>
+                <button class="tab-btn" onclick="switchTab('day3', this)">🏰 DAY 3: ดิสนีย์แลนด์ (ลืมงานแป๊บ)</button>
+                <button class="tab-btn" onclick="switchTab('day4', this)">✈️ DAY 4: ช้อปของฝาก & วาร์ปกลับ!</button>
+                <button class="tab-btn" onclick="switchTab('mutelu', this)">🔮 คู่มือมูฉบับคนอยากรวย</button>
+                <button class="tab-btn" onclick="switchTab('food', this)">🥟 ร้านอร่อยมงก๊ก & จิมซาจุ่ย</button>
+                <button class="tab-btn" onclick="switchTab('prep', this)">🌤️ สภาพอากาศ & อุปกรณ์เตรียมพร้อม</button>
+            </div>
+        </div>
+
+        <!-- DAY 1 PANEL -->
+        <div id="day1" class="panel active">
+            <div class="day-top-bar"><div class="ootd-badge">👗 OOTD DAY 1: ขาว/ยีนส์ ⚪🔵 (ทะมัดทะแมงลุยสนามบิน)</div></div>
+            <div class="card-grid">
+                <div class="alert-card-full">
+                    <div class="washi-tape washi-top-left" style="background:rgba(255,59,48,0.4)"></div>
+                    <h3>⏰ นัดหมายสำคัญ! (DMK Terminal 1)</h3>
+                    <p>เจอกันที่เคาน์เตอร์เช็คอิน ดอนเมือง เวลา <b>06:30 น.</b><br>
+                    <span style="color:#FF3B30; font-size:0.85rem;">*อย่าลืมกด Check-in Online ล่วงหน้า 24 ชม. สำหรับ Thai Lion Air ทั้ง 2 แก๊ง!</span></p>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="washi-tape washi-top-left"></div>
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=800&q=80" alt="Airport" onerror="this.style.display='none'">
+                        <span class="time-tag">09:20 - 13:05</span>
+                        <span class="group-tag tag-g1">แก๊ง A</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">✈️ แก๊ง A แลนดิ้งฮ่องกง! นั่ง Airport Express สู่เมือง</div>
+                        <div class="card-desc">บินไฟลท์ SL 360 ผ่าน ตม. สวยๆ ติ๊ดบัตร Octopus สู่ย่าน Tsim Sha Tsui ฝากกระเป๋าเตรียมลุย!</div>
+                        <div class="card-footer">📍 HKG Airport → Tsim Sha Tsui <a href="https://www.google.com/maps/search/?api=1&query=HKG%20Airport%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="washi-tape washi-top-right"></div>
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1513415564515-763d91423275?auto=format&fit=crop&w=800&q=80" alt="Temple" onerror="this.style.display='none'">
+                        <span class="time-tag">15:15 - 16:15</span>
+                        <span class="group-tag tag-g1">แก๊ง A</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">⛩️ เจ้าแม่กวนอิม ฮ่องฮำ: ขอยืมเงินเทพเจ้าไปตั้งตัว!</div>
+                        <div class="card-desc">ทำพิธียืมเงินเทพเจ้าก้อนโต ระบุจำนวนเงินมงคล แล้วพกซองอั่งเปากลับไทยเอาโชคเอาชัยตลอดปี</div>
+                        <div class="card-footer">📍 Hung Hom Kwun Yum Temple <a href="https://www.google.com/maps/search/?api=1&query=Hung%20Hom%20Kwun%20Yum%20Temple%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&w=800&q=80" alt="TST" onerror="this.style.display='none'">
+                        <span class="time-tag">17:00 - 19:00</span>
+                        <span class="group-tag tag-g1">แก๊ง A</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">🛍️ เดินสำรวจจิมซาจุ่ย ละลายทรัพย์ช้อปปิ้ง</div>
+                        <div class="card-desc">เดินเล่น Nathan Road, iSQUARE, K11 MUSEA ถ่ายรูปมุมสตรีทสวยๆ ชิกๆ รอแก๊ง B บินไฟลท์ SL 364 ตามมาสมทบ</div>
+                        <div class="card-footer">📍 Nathan Road & K11 MUSEA <a href="https://www.google.com/maps/search/?api=1&query=K11%20MUSEA%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="washi-tape washi-bottom-right"></div>
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80" alt="Night View" onerror="this.style.display='none'">
+                        <span class="time-tag">21:00 - 23:00</span>
+                        <span class="group-tag tag-both">รวมพล 9 คน</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">🍜 มื้อค่ำรวมพล 9 ชีวิต! ทานบะหมี่เกี๊ยว & ชมวิวริมอ่าว</div>
+                        <div class="card-desc">แก๊ง B บินมาถึงฮ่องกงช่วงค่ำ (19:15 น.) นัดเจอกันทานบะหมี่เกี๊ยวกุ้ง Mak's Noodle และเดินตากลมชมไฟริมอ่าววิกตอเรีย</div>
+                        <div class="card-footer">📍 Mak's Noodle & Avenue of Stars <a href="https://www.google.com/maps/search/?api=1&query=Avenue%20of%20Stars%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- DAY 2 PANEL -->
+        <div id="day2" class="panel">
+            <div class="day-top-bar"><div class="ootd-badge">👗 OOTD DAY 2: แดง/ทอง 🔴🟡 (สีมงคลรับทรัพย์วัดดัง)</div></div>
+            <div class="card-grid">
+
+                <div class="polaroid-card">
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Repulse Bay" onerror="this.style.display='none'">
+                        <span class="time-tag">09:20 - 10:00</span>
+                        <span class="group-tag tag-both">รวมพล 9 คน</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">⛩️ Repulse Bay: ข้ามสะพานต่ออายุ & ลูบไฉ่ซิ้งเอี้ย</div>
+                        <div class="card-desc">เดินข้ามสะพานต่ออายุขัย ลูบองค์เทพไฉ่ซิ้งเอี้ยกวาดเงินทองเข้ากระเป๋า และลูบลูกแก้วมังกร</div>
+                        <div class="card-footer">📍 Repulse Bay Kwun Yum Temple <a href="https://www.google.com/maps/search/?api=1&query=Repulse%20Bay%20Kwun%20Yum%20Temple%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="washi-tape washi-top-right"></div>
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=800&q=80" alt="Che Kung" onerror="this.style.display='none'">
+                        <span class="time-tag">10:30 - 11:15</span>
+                        <span class="group-tag tag-both">รวมพล 9 คน</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">🌀 วัดแชกงหมิว: หมุนกังหันแก้ดวง เอาโบนัส 10 เดือน!</div>
+                        <div class="card-desc">หมุนกังหันนำโชค 3 รอบทรงพลัง ปัดเป่าสิ่งไม่ดีออกไป ตีกลอง 3 ครั้งให้ฟ้าดินรับรู้ว่าอยากปรับเงินเดือน!</div>
+                        <div class="card-footer">📍 Che Kung Temple (วัดกังหัน) <a href="https://www.google.com/maps/search/?api=1&query=Che%20Kung%20Temple%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1584646098378-0874589d76b1?auto=format&fit=crop&w=800&q=80" alt="Wong Tai Sin" onerror="this.style.display='none'">
+                        <span class="time-tag">14:00 - 15:00</span>
+                        <span class="group-tag tag-both">รวมพล 9 คน</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">❤️ วัดหวังต้าเซียน: ผูกด้ายแดงขอแฟนรวยๆ มาช่วยเปย์</div>
+                        <div class="card-desc">ทำนิ้วสัญลักษณ์ผูกด้ายแดง ตั้งจิตขอพรเรื่องความรัก เนื้อคู่ และความสำเร็จกับเทพผู้เฒ่าจันทรา</div>
+                        <div class="card-footer">📍 Wong Tai Sin Temple <a href="https://www.google.com/maps/search/?api=1&query=Wong%20Tai%20Sin%20Temple%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="washi-tape washi-top-left"></div>
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80" alt="Mong Kok" onerror="this.style.display='none'">
+                        <span class="time-tag">15:30 - 18:00</span>
+                        <span class="group-tag tag-both">รวมพล 9 คน</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">🛍️ ช้อปปิ้งมงก๊ก & ทานสตรีทฟู้ดอร่อยๆ เยียวยาจิตใจ</div>
+                        <div class="card-desc">เดินเล่น Ladies' Market, Sneakers Street ชิมขนมปังสับปะรด Kam Wah, ซาลาเปาทอด Cheung Hing Kee</div>
+                        <div class="card-footer">📍 Mong Kok Street Food <a href="https://www.google.com/maps/search/?api=1&query=Ladies%20Market%20Mong%20Kok%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- DAY 3 PANEL -->
+        <div id="day3" class="panel">
+            <div class="day-top-bar"><div class="ootd-badge">👗 OOTD DAY 3: พาสเทล/Disneybound 🎀✨ (สดใสพร้อมลุยสวนสนุก)</div></div>
+            <div class="card-grid">
+
+                <div class="polaroid-card">
+                    <div class="washi-tape washi-top-left"></div>
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80" alt="Disneyland Castle" onerror="this.style.display='none'">
+                        <span class="time-tag">09:00 - 19:30</span>
+                        <span class="group-tag tag-both">รวมพลัง 9 คน</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">🏰 Hong Kong Disneyland: ตะลุยเมือง Frozen ให้ใจฟู!</div>
+                        <div class="card-desc">แปลงร่างเป็นเจ้าหญิง ดิสนีย์แลนด์ให้ใจฟู ลุยเครื่องเล่น Frozen Ever After, Space Mountain กรี๊ดระบายความเครียด</div>
+                        <div class="card-footer">📍 Hong Kong Disneyland <a href="https://www.google.com/maps/search/?api=1&query=Hong%20Kong%20Disneyland" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="washi-tape washi-top-right"></div>
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1498931299472-f7a63a5a1cfa?auto=format&fit=crop&w=800&q=80" alt="Fireworks" onerror="this.style.display='none'">
+                        <span class="time-tag">19:30 - 20:30</span>
+                        <span class="group-tag tag-both">รวมพลัง 9 คน</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">🎆 ชมพลุ Momentous หน้าปราสาท ปิดท้ายวันแห่งเวทมนตร์</div>
+                        <div class="card-desc">การแสดงแสงสีเสียงและพลุสุดอลังการตระการตา ปิดท้ายทริปดิสนีย์แบบประทับใจที่สุดในชีวิต!</div>
+                        <div class="card-footer">📍 Castle of Magical Dreams <a href="https://www.google.com/maps/search/?api=1&query=Castle%20of%20Magical%20Dreams%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- DAY 4 PANEL -->
+        <div id="day4" class="panel">
+            <div class="day-top-bar"><div class="ootd-badge">👗 OOTD DAY 4: เอิร์ธโทน/ดำเท่ๆ 🤎🖤 (ช้อปปิ้งส่งท้าย)</div></div>
+            <div class="card-grid">
+                <div class="alert-card-full">
+                    <div class="washi-tape washi-top-right" style="background:rgba(255,136,0,0.4)"></div>
+                    <h3>⚠️ เตรียมตัววาร์ปกลับ! (HKG Airport)</h3>
+                    <p>เผื่อเวลาเดินทางไปสนามบินอย่างน้อย 3 ชม.<br>
+                    <b>🔵 แก๊ง B:</b> บินกลับ SL 361 เวลา 14:20 น. (ถึงไทย 16:15 น.) ต้องถึงสนามบินฮ่องกงประมาณ 11:20 น.<br>
+                    <b>🔴 แก๊ง A:</b> บิน 20:20 ต้องถึงห้าโมงเย็น</p>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80" alt="Man Mo" onerror="this.style.display='none'">
+                        <span class="time-tag">08:30 - 11:30</span>
+                        <span class="group-tag tag-g1">แก๊ง A</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">⛩️ วัดหม่านโม: ลูบพู่กันขอพรปัญญาและการงาน</div>
+                        <div class="card-desc">ลูบพู่กันเทพหม่านเชียงเต็กกุน ขอพรให้ปัญญาไบรท์ งานราบรื่น ทำงานไวไม่ต้องแก้โดนบ่น</div>
+                        <div class="card-footer">📍 Man Mo Temple (Sheung Wan) <a href="https://www.google.com/maps/search/?api=1&query=Man%20Mo%20Temple%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="washi-tape washi-top-right"></div>
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80" alt="Fly Home" onerror="this.style.display='none'">
+                        <span class="time-tag">16:00 - 21:40</span>
+                        <span class="group-tag tag-both">รวมพล 9 คน</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">✈️ บินกลับไทย ชาร์จแบตพร้อมสู้ชีวิตต่อ!</div>
+                        <div class="card-desc">แก๊ง A บินกลับ SL 365 (20:20 น.) / แก๊ง B บินกลับ SL 361 (14:20 น.) ช้อปปิ้ง Duty Free ถุงแตก กลับไทยโดยสวัสดิภาพ!</div>
+                        <div class="card-footer">📍 Hong Kong International Airport <a href="https://www.google.com/maps/search/?api=1&query=Hong%20Kong%20International%20Airport" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- MUTELU PANEL -->
+        <div id="mutelu" class="panel">
+            <div class="card-grid">
+
+                <div class="polaroid-card">
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=800&q=80" alt="Che Kung" onerror="this.style.display='none'">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">🌀 วัดแชกงหมิว (หมุนเอาโบนัส)</div>
+                        <div class="card-desc"><b>ขอเรื่อง:</b> โบนัส 10 เดือน + ปรับเงินเดือนข้ามขั้น<br><b>คาถามู:</b> "หมุนตามเข็มดึงดูดเงินหมื่นเงินแสน หมุนทวนเข็มพัดพาอุปสรรคออกไป สาธุ!"</div>
+                        <div class="card-footer">📍 Che Kung Temple <a href="https://www.google.com/maps/search/?api=1&query=Che%20Kung%20Temple%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1584646098378-0874589d76b1?auto=format&fit=crop&w=800&q=80" alt="Wong Tai Sin" onerror="this.style.display='none'">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">❤️ วัดหวังต้าเซียน (ขอผู้เปย์)</div>
+                        <div class="card-desc"><b>ขอเรื่อง:</b> ขอแฟนสายเปย์มาช่วยหารค่าห้องพัก<br><b>คาถามู:</b> "ผู้เฒ่าจันทราเอ๋ย ส่งคนรวยจิตใจดีมาผูกด้ายแดงที จะได้ลาออกจากงานไปเป็นคุณนาย!"</div>
+                        <div class="card-footer">📍 Wong Tai Sin Temple <a href="https://www.google.com/maps/search/?api=1&query=Wong%20Tai%20Sin%20Temple%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1513415564515-763d91423275?auto=format&fit=crop&w=800&q=80" alt="Hung Hom" onerror="this.style.display='none'">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">💰 เจ้าแม่กวนอิม ฮ่องฮำ (ยืมเงินเทพ)</div>
+                        <div class="card-desc"><b>ขอเรื่อง:</b> ยืมเงินเทพเจ้าไปหมุนเวียนในบัญชี<br><b>คาถามู:</b> "ขอยืมสักพันล้านเหรียญฮ่องกง ปีหน้าจะบินกลับมาถวายชุดใหญ่ไฟกระพริบค่ะ!"</div>
+                        <div class="card-footer">📍 Hung Hom Kwun Yum Temple <a href="https://www.google.com/maps/search/?api=1&query=Hung%20Hom%20Kwun%20Yum%20Temple%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- FOOD PANEL -->
+        <div id="food" class="panel">
+            <div class="card-grid">
+
+                <div class="polaroid-card">
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" alt="Kam Wah" onerror="this.style.display='none'">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">🍞 ขนมปังสับปะรด Kam Wah Bakery</div>
+                        <div class="card-desc"><b>พิกัด:</b> Mong Kok<br><b>ความฟิน:</b> Pineapple Bun เนยสดก้อนใหญ่ละลายในปาก กินแล้วลืมเรื่องเครียดไปเลย!</div>
+                        <div class="card-footer">📍 Sai Yeung Choi St S, Mong Kok <a href="https://www.google.com/maps/search/?api=1&query=Kam%20Wah%20Bakery%20Mong%20Kok%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80" alt="Dim Sum" onerror="this.style.display='none'">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">🥟 ติ่มซำ DimDimSum (กุ้งเด้งสู้ฟัน)</div>
+                        <div class="card-desc"><b>พิกัด:</b> Mong Kok / Tsim Sha Tsui<br><b>ความฟิน:</b> ฮะเก๋ากุ้งแน่นๆ เด้งสู้ฟัน นุ่มลิ้น ทานแล้วเพิ่มพลังลุยเดินเที่ยวต่อ</div>
+                        <div class="card-footer">📍 Mong Kok Specialty Store <a href="https://www.google.com/maps/search/?api=1&query=DimDimSum%20Mong%20Kok%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="photo-wrapper">
+                        <div class="photo-upload-placeholder">
+                            <span class="cam-icon">📸</span>
+                            <span>แปะรูปถ่ายจริงตรงนี้</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=800&q=80" alt="Egg Tart" onerror="this.style.display='none'">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">🥧 ทาร์ตไข่ Tai Cheong Bakery</div>
+                        <div class="card-desc"><b>พิกัด:</b> Central<br><b>ความฟิน:</b> แป้งคุกกี้กรอบร่อน ไส้คัสตาร์ดนุ่มละมุน ซื้อกลับไทยไปฝากเพื่อนในแผนก</div>
+                        <div class="card-footer">📍 Lyndhurst Terrace, Central <a href="https://www.google.com/maps/search/?api=1&query=Tai%20Cheong%20Bakery%20Central%20Hong%20Kong" target="_blank" class="map-link-btn">🗺️ นำทาง</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PREP & OOTD PANEL -->
+        <div id="prep" class="panel">
+            <div class="card-grid">
+
+                <div class="polaroid-card">
+                    <div class="card-body">
+                        <div class="card-title">🌤️ สภาพอากาศกลางเมษายน (22°C - 27°C)</div>
+                        <div class="card-desc">
+                            • อากาศกำลังฟิน เดินสบายทั้งวัน<br>
+                            • มีโอกาสเจอฝนพรำๆ พกร่มพับจิ๋วติดกระเป๋าไว้ด้วย<br>
+                            • กลางคืนลมพัดเย็นสบาย เหมาะแก่การไปยืนตากลมริมอ่าว
+                        </div>
+                    </div>
+                </div>
+
+                <div class="polaroid-card">
+                    <div class="card-body">
+                        <div class="card-title">👗 OOTD จัดเต็มอย่าให้เสียชื่อ</div>
+                        <div class="card-desc">
+                            • <b>วันไหว้พระ:</b> จัดชุดสีแดง-ทอง-ชมพู เรียกทรัพย์ ห้ามใส่ดำล้วน เดี๋ยวเทพมองไม่เห็น!<br>
+                            • <b>วันดิสนีย์:</b> แต่ง Disneybound เจ้าหญิง/เจ้าชาย ถ่ายรูปอวดโซเชียล<br>
+                            • <b>รองเท้า:</b> ผ้าใบเท่านั้น! ใครใส่ส้นสูงไปเตรียมโดนหามกลับ
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Scrapbook Checklist Box -->
+            <div class="checklist-box">
+                <div class="washi-tape washi-top-right"></div>
+                <h3 style="font-size:1.25rem; font-weight:700; color:var(--text-ink);">🎒 ไอเทมพกติดตัวชาวแก๊ง (Essentials Checklist)</h3>
+                <div class="checklist-grid">
+                    <label class="check-item"><input type="checkbox" checked onclick="playClick()"> ยาดมตราโป๊ยเซียน + เคาน์เตอร์พาส</label>
+                    <label class="check-item"><input type="checkbox" checked onclick="playClick()"> Passport (อายุเหลือเกิน 6 เดือน)</label>
+                    <label class="check-item"><input type="checkbox" checked onclick="playClick()"> Universal Adapter (หัว 3 ตาเหลี่ยม)</label>
+                    <label class="check-item"><input type="checkbox" checked onclick="playClick()"> บัตร Octopus + เงินสด HKD</label>
+                    <label class="check-item"><input type="checkbox" checked onclick="playClick()"> Power Bank ไม่เกิน 20,000 mAh</label>
+                    <label class="check-item"><input type="checkbox" checked onclick="playClick()"> ร่มพับจิ๋ว / เสื้อกันฝน</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guestbook Comments Box -->
+        <div class="comment-box">
+            <div class="washi-tape washi-top-left"></div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color:var(--text-ink);">💬 สมุดโน้ตเม้าท์มอยชาวแก๊ง (Guestbook Comments)</h3>
+            <div class="comment-form">
+                <input type="text" class="comment-input" id="newComment" placeholder="พิมพ์โน้ตแปะสมุดบันทึกเพื่อน..." onkeydown="if(event.key==='Enter') addComment()">
+                <button class="comment-btn" onclick="addComment()">โพสต์โน้ต</button>
+            </div>
+            <div class="comment-list" id="commentsList">
+                <div class="comment-card">
+                    <div class="comment-avatar">A</div>
+                    <div>
+                        <div style="font-size:0.88rem; font-weight:700;">แก๊ง A (5 คน) <span style="font-size:0.78rem; color:var(--text-pencil); font-weight:normal;">• 2 ชม. ที่แล้ว</span></div>
+                        <div style="font-size:0.92rem; color:var(--text-pencil); margin-top:3px;">ปิดการแจ้งเตือนไลน์กลุ่มเรียบร้อยจ้า! ทริปสงกรานต์นี้ขอพักผ่อนแบบ 100% 🚫📱</div>
+                    </div>
+                </div>
+
+                <div class="comment-card">
+                    <div class="comment-avatar" style="background:var(--duck-blue);">B</div>
+                    <div>
+                        <div style="font-size:0.88rem; font-weight:700;">แก๊ง B (4 คน) <span style="font-size:0.78rem; color:var(--text-pencil); font-weight:normal;">• 1 ชม. ที่แล้ว</span></div>
+                        <div style="font-size:0.92rem; color:var(--text-pencil); margin-top:3px;">เตรียมตัวไปหมุนกังหันบัฟดวงรับโบนัส 10 เดือนเรียบร้อย สาธุ! 🌀✨</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>🇭🇰 Hong Kong Songkran Excursion 2026 • Built with ❤️ for Office Gang</p>
+    </footer>
+
+    <script>
+        // --- Dynamic Falling Particles Effect (Stars, Money, Lanterns & Sun) ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const symbols = ['🪙', '✨', '🏮', '🌸', '⭐', '💸', '☀️'];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height - canvas.height;
+                this.size = Math.random() * 16 + 12;
+                this.speedY = Math.random() * 1.5 + 0.8;
+                this.speedX = Math.random() * 0.8 - 0.4;
+                this.symbol = symbols[Math.floor(Math.random() * symbols.length)];
+                this.opacity = Math.random() * 0.6 + 0.3;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.y > canvas.height) {
+                    this.y = -20;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.font = `${this.size}px sans-serif`;
+                ctx.fillText(this.symbol, this.x, this.y);
+            }
+        }
+
+        for (let i = 0; i < 30; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // --- Cute Click Sound Effect (no external file needed) ---
+        let audioCtx = null;
+        function playClick(freq = 880) {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const o = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                o.type = 'sine';
+                o.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                o.frequency.exponentialRampToValueAtTime(freq * 0.6, audioCtx.currentTime + 0.12);
+                g.gain.setValueAtTime(0.18, audioCtx.currentTime);
+                g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+                o.connect(g); g.connect(audioCtx.destination);
+                o.start();
+                o.stop(audioCtx.currentTime + 0.16);
+            } catch (e) { /* audio not supported, fail silently */ }
+        }
+
+        // --- Mood theme per tab (มู / ดิสนีย์ / ช้อป / ฟ้าสงกรานต์ / ร้านอาหาร) ---
+        const tabThemeMap = {
+            day1: 'mu', day2: 'mu', day3: 'disney', day4: 'shop',
+            mutelu: 'mu', food: 'food', prep: 'sky'
+        };
+
+        // --- Tab Switcher ---
+        function switchTab(panelId, btn) {
+            playClick(720);
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const panels = document.querySelectorAll('.panel');
+            panels.forEach(p => p.classList.remove('active'));
+
+            const target = document.getElementById(panelId);
+            if (target) target.classList.add('active');
+
+            const container = document.getElementById('mainContainer');
+            if (container && tabThemeMap[panelId]) container.setAttribute('data-theme', tabThemeMap[panelId]);
+
+            btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+
+        // --- Audio Controls ---
+        let isPlaying = false;
+        function toggleAudio() {
+            playClick(600);
+            const audio = document.getElementById('bg-music');
+            const icon = document.getElementById('audioBtnIcon');
+            const title = document.getElementById('audioTitle');
+
+            if (!isPlaying) {
+                audio.play();
+                icon.innerText = '⏸';
+                title.innerText = 'กำลังเล่นเพลงทริป';
+                isPlaying = true;
+            } else {
+                audio.pause();
+                icon.innerText = '▶';
+                title.innerText = 'เปิดเพลงฟีลทริป';
+                isPlaying = false;
+            }
+        }
+
+        // --- Comment Add Function ---
+        function addComment() {
+            playClick(1000);
+            const input = document.getElementById('newComment');
+            const val = input.value.trim();
+            if (val) {
+                const list = document.getElementById('commentsList');
+                const newItem = document.createElement('div');
+                newItem.className = 'comment-card';
+                newItem.innerHTML = `
+                    <div class="comment-avatar" style="background:var(--duck-yellow); color:#000;"> You </div>
+                    <div>
+                        <div style="font-size:0.88rem; font-weight:700;">ชาวแก๊งออฟฟิศ <span style="font-size:0.78rem; color:var(--text-pencil); font-weight:normal;">• เมื่อกี้</span></div>
+                        <div style="font-size:0.92rem; color:var(--text-pencil); margin-top:3px;">${val}</div>
+                    </div>
+                `;
+                list.prepend(newItem);
+                input.value = '';
+            }
+        }
+
+        // --- Countdown Timer Logic (April 14, 2026) ---
+        function updateCountdown() {
+            const targetDate = new Date('April 14, 2026 09:20:00').getTime();
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
+                document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('cd-mins').innerText = String(mins).padStart(2, '0');
+                document.getElementById('cd-secs').innerText = String(secs).padStart(2, '0');
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
